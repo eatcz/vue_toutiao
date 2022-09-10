@@ -1,28 +1,21 @@
 <template>
- <div class="m-home">
-  <van-nav-bar>
-  <template #left>
-    <img src="@/assets/logo.png">
-  </template>
-  <template #right>
-    <van-icon name="search" size="18" color="#fff" />
-  </template>
-</van-nav-bar>
- </div>
+  <div class="m-home">
+    <Header />
+    <TabNav />
+  </div>
 </template>
 
 <script>
- export default {
-   name:''
-   }
+import Header from "./Header";
+import TabNav from "./TabNav";
+export default {
+  name: "",
+  components: {
+    Header,
+    TabNav
+  }
+};
 </script>
 
 <style scoped lang='less'>
-  .van-nav-bar{
-    background-color: #0077ff;
-    img{
-      width: 100px;
-      height: 30px;
-    }
-  }
 </style>

@@ -1,5 +1,5 @@
 <template>
- <div>
+ <div class="layout">
     <router-view></router-view>
 <van-tabbar v-model="active" route>
   <van-tabbar-item icon="home-o" to="/layout/home">首页</van-tabbar-item>
@@ -21,5 +21,7 @@
 </script>
 
 <style scoped lang='less'>
-
+  .layout{
+    padding-bottom: 50px;
+  }
 </style>

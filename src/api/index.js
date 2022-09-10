@@ -9,3 +9,6 @@ export const reqLogin = ({ mobile , code }) => requests({
         code
     }
 }) 
+
+// 频道获取
+export const reqChannels = () =>requests({url:'/v1_0/user/channels' , method:'get'})
