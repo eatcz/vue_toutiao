@@ -20,7 +20,7 @@
               <span>{{item.comm_count}}评论</span>
               <span>{{formateTime(item.pubdate)}}</span>
             </div>
-            <van-icon name="cross" @click="onclose" />
+            <van-icon name="cross" @click="onclose(item.art_id)" />
           </div>
         </template>
       </van-cell>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { reqArticles } from "@/api";
+import { reqArticles , reqDislikes , reqReports} from "@/api";
 import { timeAgo } from "@/utils/date";
 import {Toast} from  'vant';
 import {firstActions , secondActions} from '@/api/report.js'
@@ -56,7 +56,8 @@ export default {
       isLoading:false,
       show:false,
       actions: firstActions,
-      text:'取消'
+      text:'取消',
+      id:0
     };
   },
   methods: {
@@ -93,19 +94,32 @@ export default {
     
   },
   // 控制动作面板显示隐藏
-   onSelect(item , index) {
+  async onSelect(item , index) {
       // 默认情况下点击选项时不会自动收起
       // 可以通过 close-on-click-action 属性开启自动收起
       this.show = true;
       if(item.name === '反馈垃圾内容') {
         this.actions = secondActions
         this.text = '返回'
+      }else if(item.name === '不感兴趣') {
+        await reqDislikes(this.id)
+        this.show = false
+        Toast('已为您不再显示')
+      }else{
+        await reqReports({
+          target:this.id,
+          type:this.actions.values
+        })
+        Toast('举报成功')
+        this.show = false
       }
       // Toast(item.name);
     },
      // 点击x弹出
-  onclose() {
+  onclose(id) {
     this.show = true
+    // console.log(id);
+    this.id = id
   },
   // 弹窗底部按钮点击事件
   oncancel() {
