@@ -20,19 +20,30 @@
               <span>{{item.comm_count}}评论</span>
               <span>{{formateTime(item.pubdate)}}</span>
             </div>
-            <van-icon name="cross" />
+            <van-icon name="cross" @click="onclose" />
           </div>
         </template>
       </van-cell>
       <van-cell />
     </van-list>
     </van-pull-refresh>
+    <van-action-sheet
+     v-model="show" 
+     :actions="actions"
+      @select="onSelect"
+      @cancel="oncancel"
+      @open="onOpen"
+      get-container="body"
+      :cancel-text="text" 
+      />
   </div>
 </template>
 
 <script>
 import { reqArticles } from "@/api";
 import { timeAgo } from "@/utils/date";
+import {Toast} from  'vant';
+import {firstActions , secondActions} from '@/api/report.js'
 export default {
   name: "ArticleItem",
   props: ["channelId"],
@@ -42,17 +53,20 @@ export default {
       loading:false,
       finished:false,
       timestamp:new Date().getTime(),
-      isLoading:false
+      isLoading:false,
+      show:false,
+      actions: firstActions,
+      text:'取消'
     };
   },
   methods: {
     formateTime: timeAgo,
-    async onLoad() {
-       let res = await reqArticles({
+    // 获取文章数据
+    async getArticles() {
+      let res = await reqArticles({
         channel_id:this.channelId,
         timestamp:this.timestamp
        })
-       
        this.article = [...this.article , ...res.data.results]
        this.timestamp = res.data.pre_timestamp
        this.loading = false
@@ -61,26 +75,56 @@ export default {
         this.finished = true
         return
        }
+       this.isLoading = false
+  },
+    // 底部加载方法(触底加载)
+    onLoad() {
+      if(this.article.length === 0) {
+        this.loading = false
+        return
+      }
+       this.getArticles()
   } ,
+  // 顶部刷新
   async onRefresh() {
     this.article = [],
     this.timestamp = new Date().getTime()
-    let res = await reqArticles({
-        channel_id:this.channelId,
-        timestamp:this.timestamp
-    })
-    this.article = [...this.article , ...res.data.results]
-    this.timestamp = res.data.pre_timestamp
-    this.isLoading = false
+    this.getArticles()
+    
+  },
+  // 控制动作面板显示隐藏
+   onSelect(item , index) {
+      // 默认情况下点击选项时不会自动收起
+      // 可以通过 close-on-click-action 属性开启自动收起
+      this.show = true;
+      if(item.name === '反馈垃圾内容') {
+        this.actions = secondActions
+        this.text = '返回'
+      }
+      // Toast(item.name);
+    },
+     // 点击x弹出
+  onclose() {
+    this.show = true
+  },
+  // 弹窗底部按钮点击事件
+  oncancel() {
+    if(this.text === '取消'){
+      this.show = false
+    }else{
+      this.show = true
+      this.actions = firstActions
+      this.text = '取消'
+    }
+  },
+  // 打开面板时
+  onOpen() {
+    this.actions = firstActions
+    this.text = '取消'
   }
   },
   async mounted() {
-    let res = await reqArticles({
-      channel_id: this.channelId,
-      timestamp:this.timestamp
-    });
-    this.article = res.data.results;
-    this.timestamp = res.data.pre_timestamp;
+    this.getArticles()
   }
 };
 </script>
