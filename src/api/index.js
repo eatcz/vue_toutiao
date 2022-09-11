@@ -8,9 +8,11 @@ export const reqLogin = ({ mobile , code }) => requests({
         code
     }
 }) 
+// 获取所有频道
+export const reqAllChannels = () =>requests({url:'/v1_0/channels' , method:'GET'})
 
-// 频道获取
-export const reqChannels = () =>requests({url:'/v1_0/user/channels' , method:'get'})
+// 用户频道获取
+export const reqUserChannels = () =>requests({url:'/v1_0/user/channels' , method:'get'})
 
 // 列表数据
 export const reqArticles = ({channel_id , timestamp}) =>requests({

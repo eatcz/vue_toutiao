@@ -1,22 +1,34 @@
-import {reqChannels} from '@/api'
+import {reqUserChannels , reqAllChannels} from '@/api'
 
 const state = {
-    channels:[]
+    Userchannels:[],
+    AllChannels:[]
 };
 const mutations = {
-    GETCHANNELS(state , channels) {
-        state.channels = channels
+    GETUSERCHANNELS(state , Userchannels) {
+        state.Userchannels = Userchannels
+    },
+    GETALLCHANNELS(state , AllChannels) {
+        state.AllChannels = AllChannels
     }
 };
 const actions = {
-    async getChannels({commit}) {
+    async getUserChannels({commit}) {
         try {
-            let res = await reqChannels()
-            commit('GETCHANNELS' , res.data.channels)
+            let res = await reqUserChannels()
+            commit('GETUSERCHANNELS' , res.data.channels)
         } catch (error) {
             console.err('数据请求失败');
         }
         
+    },
+    async getAllChannels({commit}) {
+        try {
+            let res = await reqAllChannels()
+            commit('GETALLCHANNELS' , res.data.channels)
+        } catch (error) {
+            console.err('数据请求失败');
+        }
     }
 };
 const getters = {};
