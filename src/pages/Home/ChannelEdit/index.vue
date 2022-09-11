@@ -26,7 +26,7 @@
       <van-row type="flex">
         <van-col
           span="6"
-          v-for="obj in Userchannels"
+          v-for="obj in UserChannels"
           :key="obj.id"
           @click="userChannelClickFn(obj)"
         >
@@ -80,14 +80,15 @@
 // 目标2: 编辑频道后 -> 点击更多频道进行新增
 // 1. 更多频道->绑定点击事件, 传递频道对象下去, 下去之后要做一个判断(只有编辑状态才生效)
 // 2. 子->父, 把频道对象传递给Home/index.vue -> 父push到用户已选的频道数组内即可
-import {mapState} from 'vuex'
 export default {
-  props: { // 用户已选
+  props: {
+    UserChannels:Array, // 用户已选
     unCheckList: Array // 未选
   },
   data () {
     return {
-      isEdit: false // 编辑频道上编辑状态(x隐藏)
+      isEdit: false, // 编辑频道上编辑状态(x隐藏)
+      Userchannel:this.$store.state.home.Userchannels
     }
   },
   methods: {
@@ -99,7 +100,8 @@ export default {
     moreFn (channelObj) {
       if (this.isEdit === true) {
         // 处于编辑状态
-        this.$emit('addChannelEV', channelObj)
+        this.$emit('addChannel', channelObj)
+       
       }
     },
     // 用户选择频道-点击事件
@@ -124,7 +126,6 @@ export default {
       // this.isEdit = false
     }
   },
-  computed:{...mapState('home' , ['Userchannels']),}
 }
 </script>
 

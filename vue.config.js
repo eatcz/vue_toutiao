@@ -3,8 +3,12 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer:{
     proxy: {
+      // "": {
+      //   target: "http://geek.itheima.net",
+      //   // pathRewrite: {"^/api" : ""}
+      // },
       "": {
-        target: "http://geek.itheima.net",
+        target: "http://toutiao.itheima.net",
         // pathRewrite: {"^/api" : ""}
       }
     }

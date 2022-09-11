@@ -5,7 +5,7 @@
         <img src="@/assets/logo.png" />
       </template>
       <template #right>
-        <van-icon name="search" size="0.45rem" color="#fff" />
+        <van-icon name="search" size="0.45rem" color="#fff" @click="goSearch" />
       </template>
     </van-nav-bar>
   </div>
@@ -13,7 +13,12 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  methods:{
+    goSearch() {
+      this.$router.push('/search')
+    }
+  }
 };
 </script>
 

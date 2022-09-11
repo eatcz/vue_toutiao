@@ -14,6 +14,15 @@ export const reqAllChannels = () =>requests({url:'/v1_0/channels' , method:'GET'
 // 用户频道获取
 export const reqUserChannels = () =>requests({url:'/v1_0/user/channels' , method:'get'})
 
+// 添加频道
+export const addChannel = ({channels}) =>requests({
+    url:'/v1_0/user/channels',
+    method:'PUT',
+    data:{
+        channels:channels
+    }
+})
+
 // 列表数据
 export const reqArticles = ({channel_id , timestamp}) =>requests({
     url:'/v1_0/articles',
@@ -41,5 +50,14 @@ export const reqReports = ({target , type}) =>requests({
         target:target,
         type:type,
         remark:'test'
+    }
+})
+
+// 联想搜索
+export const reqSearchSuggest = ({q}) =>requests({
+    url:' /v1_0/suggestion',
+    method:'GET',
+    params:{
+        q:q
     }
 })

@@ -23,6 +23,10 @@ const routes = [
     component: () => import('@/pages/Login')
   },
   {
+    path:'/search',
+    component: () => import('@/pages/Search')
+  },
+  {
     path:'/',
     redirect:'/layout/home'
   }
