@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'amfe-flexible'
-import { Button , NavBar , PullRefresh  , Form , Field , Tabbar, TabbarItem , Loading , Icon , Tab, Tabs , Cell , List , ActionSheet , Popup , Row , Col , Badge , Search } from 'vant';
+import { Button , NavBar , PullRefresh  , Form , Field , Tabbar, TabbarItem , Loading , Icon , Tab, Tabs , Cell , List , ActionSheet , Popup , Row , Col , Badge , Search  , Divider} from 'vant';
 Vue.use(Button)
 Vue.use(NavBar )
 Vue.use(Form )
@@ -23,6 +23,7 @@ Vue.use(Row)
 Vue.use(Col)
 Vue.use(Badge)
 Vue.use(Search)
+Vue.use(Divider)
 Vue.config.productionTip = false
 
 // 封装中间件函数插件

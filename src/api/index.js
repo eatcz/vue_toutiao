@@ -61,3 +61,44 @@ export const reqSearchSuggest = ({q}) =>requests({
         q:q
     }
 })
+
+// 获取搜索结果
+export const reqResult =  ({page = 1 , per_page = 10 , q}) =>requests({
+    url:'/v1_0/search',
+    method:'GET',
+    params:{
+        page,
+        per_page,
+        q
+    }
+})
+
+// 获取文章详情
+export const reqDetail = ({id}) =>requests({
+    url:`/v1_0/articles/${id}`,
+    method:'GET'
+})
+
+// 关注用户
+export const reqFollow = ({id}) =>requests({
+    url:`/v1_0/user/followings/${id}`,
+    method:'POST'
+})
+
+//取关用户
+export const reqUnFollow = ({id}) =>requests({
+    url:` /v1_0/user/followings/${id}`,
+    method:'DELETE'
+})
+
+// 对文章点赞
+export const reqLikeArt = ({id}) =>requests({
+    url:`/v1_0/article/likings/${id}`,
+    method:'POST'
+})
+
+// 取消对文章点赞
+export const reqDisLikeArt = ({id}) =>requests({
+    url:` /v1_0/article/likings/${id}`,
+    method:'DELETE'
+})

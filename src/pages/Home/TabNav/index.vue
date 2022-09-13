@@ -2,7 +2,7 @@
   <div class="m-tab">
     <van-tabs v-model="channel_id" sticky animated offset-top="1.2227rem">
       <van-tab :title="c1.name" :name="c1.id"  v-for="c1 in UserChannels" :key="c1.id">
-        <ArticleItem :channelId="channel_id" /> <!--:article="artileLists"-->
+        <ArticleList :channelId="channel_id" /> <!--:article="artileLists"-->
       </van-tab>
     </van-tabs>
     <van-icon name="plus" size="0.373333334rem" class="moreChannels" @click="showPopup"/>
@@ -23,12 +23,12 @@
 
 <script>
 import {reqUserChannels , reqAllChannels , addChannel} from '@/api'
-import ArticleItem from '@/pages/Home/Article/index.vue'
+import ArticleList from '@/pages/Home/Article/index.vue'
 import ChannelEdit from '@/pages/Home/ChannelEdit/index.vue'
 export default {
   name: "TabNav",
   components:{
-    ArticleItem,
+    ArticleList,
     ChannelEdit
   },
   data() {

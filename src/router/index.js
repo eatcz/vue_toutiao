@@ -23,8 +23,16 @@ const routes = [
     component: () => import('@/pages/Login')
   },
   {
+    path:'/result/:keyword',
+    component: () => import('@/pages/Search/Result')
+  },
+  {
     path:'/search',
     component: () => import('@/pages/Search')
+  },
+  {
+    path:'/detail/:id',
+    component: () => import('@/pages/ArticleDetail/index.vue')
   },
   {
     path:'/',

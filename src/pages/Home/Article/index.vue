@@ -1,8 +1,8 @@
 <template>
-  <div>
+   <div>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
     <van-list v-model="loading" :immediate-check="false" :finished="finished" offset="50" finished-text="没有更多了" @load="onLoad">
-      <van-cell v-for="item in article" :key="item.art_id">
+      <van-cell v-for="item in article" :key="item.art_id" @click="goDetail(item.art_id)">
         <!-- 使用 title 插槽来自定义标题 -->
         <template #title>
           <div class="title">
@@ -44,8 +44,12 @@ import { reqArticles , reqDislikes , reqReports} from "@/api";
 import { timeAgo } from "@/utils/date";
 import {Toast} from  'vant';
 import {firstActions , secondActions} from '@/api/report.js'
+import ArticleItem from '@/components/ArticleItem.vue'
 export default {
   name: "ArticleItem",
+  components:{
+    ArticleItem
+  },
   props: ["channelId"],
   data() {
     return {
@@ -135,7 +139,10 @@ export default {
   onOpen() {
     this.actions = firstActions
     this.text = '取消'
-  }
+  },
+  goDetail(id) {
+      this.$router.push(`/detail/${id}`)
+    }
   },
   async mounted() {
     this.getArticles()
